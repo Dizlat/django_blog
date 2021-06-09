@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from .forms import *
 from .models import Category, Post
 
 
@@ -46,11 +47,13 @@ class PostDetailsView(DetailView):
 class CreateNewPostView(CreateView):
     queryset = Post.objects.all()
     template_name = 'main/create_post.html'
+    form_class = CreatePostForm
 
 
 class EditPostView(UpdateView):
     queryset = Post.objects.all()
     template_name = 'main/edit_post.html'
+    form_class = UpdatePostForm
 
 
 class DeletePostView(DeleteView):
