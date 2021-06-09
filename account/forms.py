@@ -49,7 +49,7 @@ class ChangePasswordForm(forms.Form):
     new_pass_confirm = forms.CharField(min_length=8, widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.get('request')
+        self.request = kwargs.pop('request')
         super().__init__(*args, **kwargs)
 
     def clean_old_pass(self):
@@ -69,7 +69,9 @@ class ChangePasswordForm(forms.Form):
     def save(self):
         new_pass = self.cleaned_data.get('new_pass')
         user = self.request.user
-        user.set_password((new_pass))
+        user.set_password(new_pass)
+        user.save()
+
 
 
 class ForgotPasswordForm:

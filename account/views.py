@@ -45,8 +45,9 @@ class ChangePassword(View):
             return redirect(reverse_lazy('index-page'))
 
     def get(self, request):
-        form = ChangePasswordForm()
+        form = ChangePasswordForm(request=request)
         return render(request, 'account/change_password.html', {'form': form})
+
 
 
 class ForgotPasswordView(View):
