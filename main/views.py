@@ -11,7 +11,7 @@ from .models import Category, Post
 #     return render(request,
 #                   'main/index.html',
 #                   {'categories': categories})
-#TODO: Переписать при помощи классов
+#TODO: Переписать при помощи классов ++
 
 # class IndexPageView(View):
 #     def get(self, request):
@@ -46,7 +46,8 @@ class PostDetailsView(DetailView):
 #TODO: Переход по страницам++++
 #TODO: Регистрация, активация, логин, логаут++++
 #TODO: смена и востановления пароля
-#TODO: больше постов
+#TODO: создание, редактирование и удаление постов
+#TODO: больше постов++++
 #TODO: HTML - письмо++++
 #TODO: Фильтрация, поиск, сортировка
 #TODO: Пагинация

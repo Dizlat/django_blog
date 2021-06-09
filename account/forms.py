@@ -33,7 +33,7 @@ class RegistrationForm(forms.ModelForm):
         password = self.cleaned_data.get('password')
         password_confirm = self.cleaned_data.pop('password_confirm')
         if password !=password_confirm:
-            raise forms.ValidationError('не совподябт пароли')
+            raise forms.ValidationError('не совподает пароль')
         return self.cleaned_data
 
     def save(self):
@@ -43,8 +43,33 @@ class RegistrationForm(forms.ModelForm):
         return user
 
 
-class ChangePasswordForm:
-    pass
+class ChangePasswordForm(forms.Form):
+    old_pass = forms.CharField(min_length=8, widget=forms.PasswordInput)
+    new_pass = forms.CharField(min_length=8, widget=forms.PasswordInput)
+    new_pass_confirm = forms.CharField(min_length=8, widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.get('request')
+        super().__init__(*args, **kwargs)
+
+    def clean_old_pass(self):
+        old_pass = self.cleaned_data.get('old_pass')
+        user = self.request.user
+        if not user.check_password(old_pass):
+            raise forms.ValidationError('Укажите верный пароль')
+        return old_pass
+
+    def clean(self):
+        new_pass = self.cleaned_data.get('new_pass')
+        new_pass_confirm = self.cleaned_data.get('new_pass_confirm')
+        if new_pass != new_pass_confirm:
+            raise forms.ValidationError('Неверное подтверждение нового пароля')
+        return self.cleaned_data
+
+    def save(self):
+        new_pass = self.cleaned_data.get('new_pass')
+        user = self.request.user
+        user.set_password((new_pass))
 
 
 class ForgotPasswordForm:
