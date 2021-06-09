@@ -10,5 +10,7 @@ urlpatterns = [
     path('login/', SingInView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('change_password/', ChangePassword.as_view(), name='change-password'),
-    # path('forgot_password/', ForgotPasswordView.as_view(), name='forgot-password'),
+    path('forgot_password/', ForgotPasswordView.as_view(), name='forgot-password'),
+    path('forgot_pass_complete/', TemplateView.as_view(template_name='account/forgot_pass_complete.html'),
+         name='forgot-pass-complete')
 ]

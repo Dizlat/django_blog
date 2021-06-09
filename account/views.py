@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, TemplateView
 
-from account.forms import RegistrationForm, ChangePasswordForm
+from account.forms import RegistrationForm, ChangePasswordForm, ForgotPasswordForm
 
 User = get_user_model()
 
@@ -43,17 +43,24 @@ class ChangePassword(View):
         if form.is_valid():
             form.save()
             return redirect(reverse_lazy('index-page'))
+        return render(request, 'account/change_password.html', {'form': form})
 
     def get(self, request):
         form = ChangePasswordForm(request=request)
         return render(request, 'account/change_password.html', {'form': form})
 
 
-
 class ForgotPasswordView(View):
     def post(self, request):
-        pass
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            form.send_new_password()
+            return redirect(reverse_lazy('forgot-pass-complete'))
+        return render(request, 'account/forgot_password.html', {'form': form})
 
     def get(self, request):
-        pass
+        form = ForgotPasswordForm()
+        return render(request, 'account/forgot_password.html', {'form': form})
+
+# class Forgot
 

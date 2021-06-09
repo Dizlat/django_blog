@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
 
 User = get_user_model()
 
@@ -73,6 +74,25 @@ class ChangePasswordForm(forms.Form):
         user.save()
 
 
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField()
 
-class ForgotPasswordForm:
-    pass
+    def clean_enail(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Пользователь не найден')
+        return email
+
+    def send_new_password(self):
+        email = self.cleaned_data.get('email')
+        new_pass = get_random_string(length=8)
+        user = User.objects.get(email=email)
+        user.set_password(new_pass)
+        user.save()
+        send_mail(
+            'Восстановление пароля',
+            f'Ваш новый пароль: {new_pass}',
+            'test@gmail.com',
+            [email]
+        )
+
