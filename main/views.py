@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Category, Post
 
@@ -40,6 +40,22 @@ class PostsListView(ListView):
 class PostDetailsView(DetailView):
     queryset = Post.objects.all()
     template_name = 'main/post_details.html'
+    context_object_name = 'post'
+
+
+class CreateNewPostView(CreateView):
+    queryset = Post.objects.all()
+    template_name = 'main/create_post.html'
+
+
+class EditPostView(UpdateView):
+    queryset = Post.objects.all()
+    template_name = 'main/edit_post.html'
+
+
+class DeletePostView(DeleteView):
+    queryset = Post.objects.all()
+    template_name = 'main/delete_post.html'
 
 
 #TODO: Список постов по категориям++++
