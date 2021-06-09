@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, TemplateView
 
-from account.forms import RegistrationForm
+from account.forms import RegistrationForm, ChangePasswordForm
 
 User = get_user_model()
 
@@ -39,10 +39,14 @@ class SingInView(LoginView):
 
 class ChangePassword(View):
     def post(self, request):
-        pass
+        form = ChangePasswordForm(request.POST, request=request)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('index-page'))
 
     def get(self, request):
-        pass
+        form = ChangePasswordForm()
+        return render(request, 'account/change_password.html', {'form': form})
 
 
 class ForgotPasswordView(View):
