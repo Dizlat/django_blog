@@ -33,6 +33,7 @@ class PostsListView(ListView):
     queryset = Post.objects.all()
     template_name = 'main/posts_list.html'
     context_object_name = 'posts'
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -82,12 +83,15 @@ class DeletePostView(IsAuthorMixin, DeleteView):
     def get_success_url(self):
         return reverse('index-page')
 
+class SearchResultView(View):
+    pass
+
 
 #TODO: Список постов по категориям++++
 #TODO: Переход по страницам++++
 #TODO: Регистрация, активация, логин, логаут++++
 #TODO: смена и востановления пароля++
-#TODO: создание, редактирование и удаление постов
+#TODO: создание, редактирование и удаление постов+
 #TODO: больше постов++++
 #TODO: HTML - письмо++++
 #TODO: Фильтрация, поиск, сортировка

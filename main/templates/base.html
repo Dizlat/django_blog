@@ -6,7 +6,7 @@
 </head>
 <body>
       <nav>
-          <a>Главная</a> |
+          <a href="{% url 'index-page' %}">Главная</a> |
           {% if user.is_authenticated %}
             Здравствуйте, {{ user.email }}! <a href="{% url 'logout' %}">Выйти</a>
           <a href="{% url 'change-password' %}">Сменить пароль</a>
