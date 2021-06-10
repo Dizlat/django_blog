@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h1>Редактирование поста</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Создать</button>
 </body>
 </html>
