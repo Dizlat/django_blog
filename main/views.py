@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -55,6 +56,9 @@ class CreateNewPostView(LoginRequiredMixin, CreateView):
         kwargs['request'] = self.request
         return kwargs
 
+    def get_success_url(self):
+        return reverse('post-details', args=(self.object.id, ))
+
 
 class IsAuthorMixin(UserPassesTestMixin):
     def test_func(self):
@@ -67,16 +71,22 @@ class EditPostView(IsAuthorMixin, UpdateView):
     template_name = 'main/edit_post.html'
     form_class = UpdatePostForm
 
+    def get_success_url(self):
+        return reverse('post-details', args=(self.object.id, ))
+
 
 class DeletePostView(IsAuthorMixin, DeleteView):
     queryset = Post.objects.all()
     template_name = 'main/delete_post.html'
 
+    def get_success_url(self):
+        return reverse('index-page')
+
 
 #TODO: Список постов по категориям++++
 #TODO: Переход по страницам++++
 #TODO: Регистрация, активация, логин, логаут++++
-#TODO: смена и востановления пароля
+#TODO: смена и востановления пароля++
 #TODO: создание, редактирование и удаление постов
 #TODO: больше постов++++
 #TODO: HTML - письмо++++

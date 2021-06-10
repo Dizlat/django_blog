@@ -16,10 +16,13 @@ class CreatePostForm(forms.ModelForm):
         self.request = kwargs.pop('request')
         super(CreatePostForm, self).__init__(*args, **kwargs)
 
-    def clean(self):
-        user = self.request.user
-        self.cleaned_data['author'] = user
-        super(CreatePostForm, self).clean()
+    def save(self):
+        data = self.cleaned_data
+        data['author'] = self.request.user
+        tags = data.pop('tags')
+        post = Post.objects.create(**data)
+        post.tags.add(*tags)
+        return post
 
 
 class UpdatePostForm(forms.ModelForm):
