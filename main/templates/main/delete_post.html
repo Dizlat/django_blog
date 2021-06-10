@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h1>Вы хотите удалить данный пост?</h1>
+    <p>
+        <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+    </form> <a href="{% url 'post-details' post.id %}">Отмена</a>
+    </p>
 </body>
 </html>

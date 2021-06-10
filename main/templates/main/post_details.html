@@ -12,4 +12,7 @@
     {% endfor %}
 
   </p>
+
+  <p><a href="{% url 'edit-post' post.id %}">Редактировать</a> |
+    <a href="{% url 'delete-post' post.id %}">Удалить</a></p>
 {% endblock body %}
