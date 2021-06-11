@@ -141,33 +141,32 @@
                         <div class="entry__thumb">
                             <a href="single-standard.html" class="thumb-link">
                                 {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="">
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}">
                                 {% endif %}
                             </a>
                         </div> <!-- end entry__thumb -->
 
                         <div class="entry__text">
                             <div class="entry__header">
-                                <h1 class="entry__title"><a href="https://www.dreamhost.com/r.cgi?287326">{{ post.title }}</a></h1>
+                                <h1 class="entry__title"><a href="{% url 'post-details' post.id %}">{{ post.title }}</a></h1>
 
                                 <div class="entry__meta">
                                     <span class="byline">By:
                                         <span class='author'>
-                                            <a href="https://www.dreamhost.com/r.cgi?287326">StyleShout</a>
+                                            <a href="https://www.dreamhost.com/r.cgi?287326">{{ post.author }}</a>
                                     </span>
                                 </span>
                                     <span class="cat-links">
-                                        <a href="https://www.dreamhost.com/r.cgi?287326">Site Partner</a>
+                                        <a href="https://www.dreamhost.com/r.cgi?287326">{{ post.pub_date }}</a>
                                     </span>
                                 </div>
                             </div>
                             <div class="entry__excerpt">
                                 <p>
-                                Need hosting? We would highly recommend DreamHost.
-                                Enjoy 100% in-house support, guaranteed performance and uptime, 1-click installs, and a super-intuitive control panel to make managing your websites and projects easy.
+                                    {{ post.text|safe|truncatewords:10 }}
                                 </p>
                             </div>
-                            <a class="entry__more-link" href="https://www.dreamhost.com/r.cgi?287326">Learn More</a>
+                            <a class="entry__more-link" href="{% url 'post-details' post.id %}">Подробнее</a>
                         </div> <!-- end entry__text -->
 
                     </article> <!-- end article -->
