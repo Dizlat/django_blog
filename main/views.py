@@ -23,10 +23,15 @@ from .models import Category, Post
 #                       'main/index.html',
 #                       {'categories': categories})
 
-class IndexPageView(ListView):
-    queryset = Category.objects.all()
-    template_name = 'main/index.html'
-    context_object_name = 'categories'
+class IndexPageView(View):
+    # queryset = Category.objects.all()
+    # template_name = 'main/index.html'
+    # context_object_name = 'categories'
+
+    def get(self, request):
+        categories = Category.objects.all()
+        posts = Post.objects.all()
+        return render(request, 'main/index.html', locals())
 
 
 class PostsListView(ListView):

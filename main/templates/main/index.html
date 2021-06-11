@@ -140,14 +140,15 @@
 
                         <div class="entry__thumb">
                             <a href="single-standard.html" class="thumb-link">
-                                <img src="{% static 'images/thumbs/masonry/macbook-600.jpg' %}"
-                                     srcset="{% static 'images/thumbs/masonry/macbook-600.jpg 1x, images/thumbs/masonry/macbook-1200.jpg 2x' %}" alt="">
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="">
+                                {% endif %}
                             </a>
                         </div> <!-- end entry__thumb -->
 
                         <div class="entry__text">
                             <div class="entry__header">
-                                <h1 class="entry__title"><a href="https://www.dreamhost.com/r.cgi?287326">Need Web Hosting for Your Websites?</a></h1>
+                                <h1 class="entry__title"><a href="https://www.dreamhost.com/r.cgi?287326">{{ post.title }}</a></h1>
 
                                 <div class="entry__meta">
                                     <span class="byline">By:
