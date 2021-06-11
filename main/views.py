@@ -46,6 +46,12 @@ class PostsListView(ListView):
         return queryset.filter(category_id=category_id)
 
 
+class CatDetailView(DetailView):
+    queryset = Category.objects.all()
+    template_name = 'main/posts_list.html'
+    context_object_name = 'category'
+
+
 class PostDetailsView(DetailView):
     queryset = Post.objects.all()
     template_name = 'main/post_details.html'
