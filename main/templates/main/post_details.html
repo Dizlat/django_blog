@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
   <p>{{ post.title }}</p>
-  <h1>{{ post.text }}</h1>
+  <h1>{{ post.text|safe }}</h1>
   {% if post.image %}
   <img src="{{ post.image.url }}" >
   {% endif %}
