@@ -29,7 +29,7 @@ class IndexPageView(View):
     # context_object_name = 'categories'
 
     def get(self, request):
-        categories = Category.objects.all()
+        # categories = Category.objects.all()
         posts = Post.objects.all()
         return render(request, 'main/index.html', locals())
 
